@@ -6,3 +6,5 @@ export const parseEnv = () => {
 };
 
 parseEnv();
+
+// for test bash: $ RSS_name1=value1 RSS_name2=value2 node env
