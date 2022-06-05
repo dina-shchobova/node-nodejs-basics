@@ -7,7 +7,7 @@ export const remove = async () => {
   for (const file of files) {
     if (file === 'fileToRemove.txt') {
       fileWasFound = true;
-      rm(path.join(path.dirname(''), 'files', 'fileToRemove.txt'));
+      await rm(path.join(path.dirname(''), 'files', 'fileToRemove.txt'));
       break;
     }
   }
