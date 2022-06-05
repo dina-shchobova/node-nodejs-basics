@@ -2,9 +2,20 @@ import path, { dirname } from 'path';
 import { fileURLToPath } from 'url'
 import { release, version } from 'os';
 import { createServer as createServerHttp } from 'http';
+import { readFile } from 'fs/promises';
 import './files/c.mjs';
-import a from './files/a.json' assert {type: 'json'};
-import b from './files/b.json' assert {type: 'json'};
+
+const a = JSON.parse(
+  await readFile(
+    new URL('./files/a.json', import.meta.url)
+  )
+);
+
+const b = JSON.parse(
+  await readFile(
+    new URL('./files/b.json', import.meta.url)
+  )
+);
 
 const random = Math.random();
 
