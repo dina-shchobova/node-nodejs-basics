@@ -3,7 +3,9 @@ import { stdin, stdout } from 'process';
 import path from 'path';
 
 export const write = async () => {
-  const writeStream = createWriteStream(path.join(path.dirname(''), 'files', 'fileToWrite.txt'));
+  const projectDir = path.resolve(path.dirname(''));
+  const __dirname = path.join(projectDir, 'src', 'streams', 'files');
+  const writeStream = createWriteStream(path.join(__dirname, 'fileToWrite.txt'));
   stdout.write('Write some text and press ENTER \n');
 
   stdin.on('data', data => {

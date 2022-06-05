@@ -3,9 +3,11 @@ import path from 'path';
 
 export const rename = async () => {
   try {
+    const projectDir = path.resolve(path.dirname(''));
+    const __dirname = path.join(projectDir, 'src', 'fs', 'files');
     let wrongFileExists = false;
     let properFileExists = false;
-    const files = await readdir(path.join(path.dirname(''), 'files'));
+    const files = await readdir(__dirname);
     for (const file of files) {
       if (file === 'properFilename.txt') {
         properFileExists = true;
@@ -13,8 +15,8 @@ export const rename = async () => {
       }
       if (file === 'wrongFilename.txt') {
         wrongFileExists = true;
-        const oldName = path.join(path.dirname(''), 'files', 'wrongFilename.txt');
-        const newName = path.join(path.dirname(''), 'files', 'properFilename.txt');
+        const oldName = path.join(__dirname, 'wrongFilename.txt');
+        const newName = path.join(__dirname, 'properFilename.txt');
         await fs.rename(oldName, newName);
       }
     }

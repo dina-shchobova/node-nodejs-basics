@@ -2,7 +2,8 @@ import fs, {readdir, access} from 'fs/promises';
 import path from 'path';
 
 export const copy = async () => {
-  const files = await readdir(path.dirname(''));
+  const projectDir = path.resolve(path.dirname(''));
+  const files = await readdir(path.join(projectDir, 'src', 'fs'));
 
   try {
     for (const file of files) {
@@ -11,15 +12,15 @@ export const copy = async () => {
       }
     }
 
-    await access(path.join(path.dirname(''), 'files'));
-    await fs.mkdir(path.join(path.dirname(''), 'files_copy'), err => {
+    await access(path.join(projectDir, 'src', 'fs', 'files'));
+    await fs.mkdir(path.join(projectDir, 'src', 'fs', 'files_copy'), err => {
       if (err) throw err;
     });
 
-    const originFiles = await readdir(path.join(path.dirname(''), 'files'));
+    const originFiles = await readdir(path.join(projectDir, 'src', 'fs', 'files'));
     for (const file of originFiles) {
-      const from = path.join(path.dirname(''), 'files', `${file}`);
-      const to = path.join(path.dirname(''), 'files_copy', `${file}`);
+      const from = path.join(projectDir, 'src', 'fs', 'files', `${file}`);
+      const to = path.join(projectDir, 'src', 'fs', 'files_copy', `${file}`);
       await fs.copyFile(from, to);
     }
   } catch {

@@ -3,7 +3,8 @@ import path from 'path';
 
 export const create = async () => {
   try {
-    const __dirname = path.join(path.dirname(''), 'files');
+    const projectDir = path.resolve(path.dirname(''));
+    const __dirname = path.join(projectDir, 'src', 'fs', 'files');
     await access(__dirname);
     const files = await readdir(__dirname);
     for (const file of files) {

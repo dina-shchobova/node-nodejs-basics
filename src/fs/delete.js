@@ -2,18 +2,25 @@ import { readdir, rm } from 'fs/promises';
 import path from 'path';
 
 export const remove = async () => {
-  let fileWasFound = false;
-  const files = await readdir(path.join(path.dirname(''), 'files'));
-  for (const file of files) {
-    if (file === 'fileToRemove.txt') {
-      fileWasFound = true;
-      await rm(path.join(path.dirname(''), 'files', 'fileToRemove.txt'));
-      break;
+  try {
+    const projectDir = path.resolve(path.dirname(''));
+    const __dirname = path.join(projectDir, 'src', 'fs', 'files');
+    let fileWasFound = false;
+    const files = await readdir(__dirname);
+    for (const file of files) {
+      if (file === 'fileToRemove.txt') {
+        fileWasFound = true;
+        await rm(path.join(projectDir, 'src', 'fs', 'files', 'fileToRemove.txt'));
+        break;
+      }
     }
+    if (fileWasFound === false) {
+      throw new Error();
+    }
+  } catch {
+    console.log('FS operation failed');
   }
-  if (fileWasFound === false) {
-    throw new Error('FS operation failed');
-  }
+
 };
 
 await remove();
