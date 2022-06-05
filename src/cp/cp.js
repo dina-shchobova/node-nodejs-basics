@@ -1,8 +1,9 @@
-import {spawn} from 'child_process';
-import {stdin, stdout} from 'process';
+import { spawn } from 'child_process';
+import { stdin, stdout } from 'process';
+import path from 'path';
 
 export const spawnChildProcess = async (args) => {
-  const subprocess = spawn('node', ['./files/script.js', ...args]);
+  const subprocess = spawn('node', [path.join(path.dirname(''), 'files', 'script'), ...args]);
 
   subprocess.stdout.setEncoding('utf8');
   subprocess.stdout.on('data', function (data) {
@@ -17,8 +18,8 @@ export const spawnChildProcess = async (args) => {
 
   subprocess.stdin.setEncoding('utf8');
 
-  subprocess.on('close', function (code) {
-    console.log('process exit code ' + code);
+  subprocess.on('close', function () {
+    console.log('Process exit');
     process.exit();
   });
 
@@ -29,7 +30,6 @@ export const spawnChildProcess = async (args) => {
     subprocess.stdin.write(value);
   });
 
-
 };
 
-await spawnChildProcess(['--uilo', 'utin']);
+await spawnChildProcess(['--war', 'NO']);
